@@ -236,6 +236,10 @@ server {
                 include /etc/nginx/vhost.d/default_location;
                 {{ end }}
 	}
+
+	{{ if (exists (printf "/etc/nginx/vhost.d/%s_other_locations" $host)) }}
+	include {{ printf "/etc/nginx/vhost.d/%s_other_locations" $host}};
+	{{ end }}
 }
 
 {{ end }}
@@ -273,6 +277,10 @@ server {
                 include /etc/nginx/vhost.d/default_location;
                 {{ end }}
 	}
+
+	{{ if (exists (printf "/etc/nginx/vhost.d/%s_other_locations" $host)) }}
+	include {{ printf "/etc/nginx/vhost.d/%s_other_locations" $host}};
+	{{ end }}
 }
 
 {{ if (and (not $is_https) (exists "/etc/nginx/certs/default.crt") (exists "/etc/nginx/certs/default.key")) }}
